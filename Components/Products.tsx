@@ -23,7 +23,7 @@ const fetchProduct = async () => {
 
 export default function Products() {
   const [product, setProduct] = useState<Product | undefined>();
-  const [error, setError] = useState<null | string>();
+  // const [error, setError] = useState<null | string>();
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     const loadProduct = async () => {
@@ -32,7 +32,7 @@ export default function Products() {
         setProduct(productData.products);
       } catch (err) {
         console.log(err);
-        setError("Failed to fetch products"); // Handle errors
+        // setError("Failed to fetch products"); // Handle errors
       } finally {
         setLoading(false);
       }

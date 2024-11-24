@@ -2,11 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 // import App from "./App.tsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "../Components/Common/Layout.tsx";
 import Home from "./pages/Home.tsx";
 import About from "./pages/About.tsx";
 import ProductDetails from "./pages/ProductDetails.tsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
@@ -15,14 +16,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        loader: async () => {
-          const product = await fetch(`https://dummyjson.com/products?limit=6`);
-          return product.json();
-        },
         element: <Home />,
       },
       { path: "/about/:slug", element: <About /> },
-      { path: "/product-details", element: <ProductDetails /> },
+      {
+        path: "/product-details/:slug",
+        loader: async ({ params }) => {
+          const details = await axios.get(
+            `https://dummyjson.com/products/${params.slug}`
+          );
+          return details.data;
+        },
+        element: <ProductDetails />,
+      },
     ],
   },
 ]);

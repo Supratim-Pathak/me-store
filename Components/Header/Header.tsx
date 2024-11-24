@@ -1,12 +1,12 @@
-
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container px-4 px-lg-5">
-        <a className="navbar-brand" href="#!">
-          Start Bootstrap
-        </a>
+        <Link className="navbar-brand" to={"/"}>
+          Dummy store
+        </Link>
         <button
           className="navbar-toggler"
           type="button"

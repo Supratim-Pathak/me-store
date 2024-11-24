@@ -1,76 +1,104 @@
-
-
+import { useLoaderData } from "react-router-dom";
+import StarRating from "../../Components/StarRating";
 const ProductDetails = () => {
+  const details = useLoaderData() as any;
+
   return (
     <div className="card">
       <div className="row">
-        <aside className="col-sm-5 border-right">
+        <aside className="col-sm-5 border-right text-center mt-2">
           <article className="gallery-wrap">
+            {/* Big Image */}
             <div className="img-big-wrap">
-              <div>
-                {/* <a href="#">
-                  <img src="https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png" />
-                </a> */}
-              </div>
+              <img
+                src={details.images[0]}
+                alt="Product"
+                className="img-fluid"
+              />
             </div>
-            {/* slider-product.// */}
-            {/* <div className="img-small-wrap">
-              <div className="item-gallery">
-                <img src="https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png" />
-              </div>
-              <div className="item-gallery">
-                <img src="https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png" />
-              </div>
-              <div className="item-gallery">
-                <img src="https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png" />
-              </div>
-              <div className="item-gallery">
-                <img src="https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png" />
-              </div>
-            </div> */}
-            {/* slider-nav.// */}
+
+            {/* Small Images */}
+            <div className="img-small-wrap mt-3 d-flex justify-content-center">
+              {details?.images?.length > 0 ? (
+                details.images.map((image: string, index: number) => (
+                  <div
+                    key={index}
+                    className="item-gallery m-1"
+                    style={{ cursor: "pointer" }}
+                  >
+                    <img
+                      src={image}
+                      alt={`Thumbnail ${index + 1}`}
+                      className="img-thumbnail"
+                      // onClick={() => setActiveImage(image)}
+                      style={{ width: 60, height: 60 }}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div>No images available</div>
+              )}
+            </div>
           </article>
-          {/* gallery-wrap .end// */}
         </aside>
         <aside className="col-sm-7">
           <article className="card-body p-5">
-            <h3 className="title mb-3">
-              Original Version of Some product name
-            </h3>
-            <p className="price-detail-wrap">
-              <span className="price h3 text-warning">
-                <span className="currency">US $</span>
-                <span className="num">1299</span>
+            <h3 className="title ">{details.title}</h3>
+            <div className="mb-2 d-flex">
+              <StarRating rating={details.rating} />
+              <span
+                className="px-2 fw-bold text-decoration-underline text-info pe-auto"
+                style={{ cursor: "pointer" }}
+              >
+                Review
               </span>
-              <span>/per kg</span>
-            </p>
+            </div>
+            <div className="price-detail-wrap d-flex">
+              <div className="">
+                <span className="price h3 text-warning">
+                  <span className="currency">US $</span>
+                  <span className="num">{details.price}</span>
+                </span>
+              </div>
+              <div className="mt-1">
+                <span className="badge rounded-pill bg-danger mx-3">
+                  {details.discountPercentage}% discount
+                </span>
+              </div>
+            </div>
+
             {/* price-detail-wrap .// */}
-            <dl className="item-property">
+            <dl className="item-property mt-3">
               <dt>Description</dt>
               <dd>
-                <p>
-                  Here goes description consectetur adipisicing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                  enim ad minim veniam, quis nostrud exercitation ullamco
-                </p>
+                <p>{details.description}</p>
               </dd>
             </dl>
-            <dl className="param param-feature">
-              <dt>Model#</dt>
-              <dd>12345611</dd>
-            </dl>
+            <div className="param param-feature">
+              <span className="fw-bold">Tags#</span>
+              <div>
+                {details.tags.map((data: string | null | undefined) => {
+                  return (
+                    <span className="badge rounded-pill bg-info m-1">
+                      {data}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
             {/* item-property-hor .// */}
-            <dl className="param param-feature">
+            {/* <dl className="param param-feature">
               <dt>Color</dt>
               <dd>Black and white</dd>
-            </dl>
+            </dl> */}
             {/* item-property-hor .// */}
-            <dl className="param param-feature">
+            {/* <dl className="param param-feature">
               <dt>Delivery</dt>
               <dd>Russia, USA, and Europe</dd>
-            </dl>
+            </dl> */}
             {/* item-property-hor .// */}
             <hr />
+
             <div className="row">
               <div className="col-sm-5">
                 <dl className="param param-inline">
@@ -88,46 +116,6 @@ const ProductDetails = () => {
                 </dl>
                 {/* item-property .// */}
               </div>
-              {/* col.// */}
-              <div className="col-sm-7">
-                <dl className="param param-inline">
-                  <dt>Size: </dt>
-                  <dd>
-                    <label className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadio2"
-                        defaultValue="option2"
-                      />
-                      <span className="form-check-label">SM</span>
-                    </label>
-                    <label className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadio2"
-                        defaultValue="option2"
-                      />
-                      <span className="form-check-label">MD</span>
-                    </label>
-                    <label className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadio2"
-                        defaultValue="option2"
-                      />
-                      <span className="form-check-label">XXL</span>
-                    </label>
-                  </dd>
-                </dl>
-                {/* item-property .// */}
-              </div>
-              {/* col.// */}
             </div>
             {/* row.// */}
             <hr />

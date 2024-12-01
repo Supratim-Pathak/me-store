@@ -8,6 +8,8 @@ import About from "./pages/About.tsx";
 import ProductDetails from "./pages/ProductDetails.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import axios from "axios";
+import AllProduct from "./pages/AllProduct.tsx";
+import CategoryProduct from "./pages/CategoryProduct.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       { path: "/about/:slug", element: <About /> },
+      { path: "/all-products", element: <AllProduct /> },
+      { path: "/category/:category", element: <CategoryProduct /> },
       {
         path: "/product-details/:slug",
         loader: async ({ params }) => {

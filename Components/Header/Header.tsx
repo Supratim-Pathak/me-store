@@ -1,6 +1,20 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 export default function Header() {
+  const [show, setShow] = useState(false);
+  const [records, setRecords] = useState<[String]>();
+  useEffect(() => {
+    axios
+      .get("https://dummyjson.com/products/category-list?limit=6")
+      .then((data) => {
+        console.log(data.data);
+        setRecords(data.data.splice(0, 4));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container px-4 px-lg-5">
@@ -21,9 +35,13 @@ export default function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#!">
-                Home
-              </a>
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to={"/all-products"}
+              >
+                Discover
+              </Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#!">
@@ -38,28 +56,35 @@ export default function Header() {
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShow(!show);
+                }}
+                // onBlur={() => {
+                //   setShow(!show);
+                // }}
               >
                 Shop
               </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a className="dropdown-item" href="#!">
-                    All Products
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#!">
-                    Popular Items
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#!">
-                    New Arrivals
-                  </a>
-                </li>
+              <ul
+                className={`dropdown-menu ${show ? "show" : ""}`}
+                aria-labelledby="navbarDropdown"
+              >
+                {records?.map((cat: any) => {
+                  return (
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        to={`/category/${cat}`}
+                        onClick={(e) => {
+                          setShow(!show);
+                        }}
+                      >
+                        {cat.toUpperCase()}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </li>
           </ul>

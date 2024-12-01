@@ -12,7 +12,7 @@ interface Product {
   price: string;
   discountPercentage: string;
 }
-const fetchProduct = async (category: string | undefined, limit: number) => {
+const fetchProduct = async (category: string | undefined, _limit: number) => {
   const data = await axios.get(
     `https://dummyjson.com/products/category/${category}`
   );

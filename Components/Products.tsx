@@ -2,7 +2,6 @@ import axios from "axios";
 import ProductCard from "./Common/ProductCard";
 import { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import { Link } from "react-router-dom";
 interface Product {
   [x: string]: any;
   id: number;

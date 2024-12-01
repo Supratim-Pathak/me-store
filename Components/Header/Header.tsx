@@ -76,7 +76,7 @@ export default function Header() {
                       <Link
                         className="dropdown-item"
                         to={`/category/${cat}`}
-                        onClick={(e) => {
+                        onClick={(_e) => {
                           setShow(!show);
                         }}
                       >
